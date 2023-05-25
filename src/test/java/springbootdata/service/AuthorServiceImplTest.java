@@ -32,7 +32,8 @@ class AuthorServiceImplTest {
     void setUp() {
         this.services = new AuthorServiceImpl(repo);
     }
-
+    
+    
     @Test
     void testGetUserById_RequiredAuthorID_ReturnAuthor() {
         Author author = new Author(5L, "Mahmoud");
@@ -44,6 +45,8 @@ class AuthorServiceImplTest {
     @Test
     void testGetUserById_RequiredAuthorID_ReturnNotFoundException() {
         Author author = new Author(6L, "Mahmoud");
+        // mocking method may work correclty and don't throw not found exception because
+        // you already mocked repo.findById(author.getId()) in eariler test
         Mockito.when(repo.findById(author.getId())).thenThrow(NotFoundException.class);
         Assertions.assertThrows(NotFoundException.class, () -> services.getAuthorById(author.getId()));
     }
