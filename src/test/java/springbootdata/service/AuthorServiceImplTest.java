@@ -38,14 +38,15 @@ class AuthorServiceImplTest {
         Author author = new Author(5L, "Mahmoud");
         Mockito.when(repo.findById(author.getId())).thenReturn(Optional.of(author));
         Author result = services.getAuthorById(author.getId());
-        Assertions.assertEquals(author, result);
+        assertEquals(author, result);  // Unnecessary of using Assertions.assertEquals because of your static import: You can Just do -> assertEquals(author, result);
     }
+   
 
     @Test
     void testGetUserById_RequiredAuthorID_ReturnNotFoundException() {
         Author author = new Author(6L, "Mahmoud");
         Mockito.when(repo.findById(author.getId())).thenThrow(NotFoundException.class);
-        Assertions.assertThrows(NotFoundException.class, () -> services.getAuthorById(author.getId()));
+        assertThrows(NotFoundException.class, () -> services.getAuthorById(author.getId()));  // Unnecessary because of your static import
     }
 
 
@@ -54,7 +55,7 @@ class AuthorServiceImplTest {
         Author author = new Author(5L, "Mahmoud");
         Mockito.when(repo.save(author)).thenReturn(author);
         Author result = services.addAuthor(author);
-        Assertions.assertEquals(author, result);
+        assertEquals(author, result); // Unnecessary because of your static import
     }
 
 }
